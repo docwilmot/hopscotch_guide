@@ -1,0 +1,63 @@
+<?php
+
+function hopscotch_guide_init() {
+  backdrop_add_js(backdrop_get_path('module', 'hopscotch') . '/inc/js/hopscotch_start_link.js');
+  backdrop_add_js(backdrop_get_path('module', 'hopscotch_guide') . '/js/hopscotch_guide_menu.js');
+}
+
+function hopscotch_guide_preprocess_block(&$variables) {
+  $block = $variables['block'];
+  if ($block->delta == 'hopscotch_start_link' && isset($block->settings['block_settings']['guide_button'])) {
+    $variables['classes'][] = $block->settings['block_settings']['guide_button'] ? 'guide-button' : '';
+  }
+}
+
+function hopscotch_guide_admin_bar_output_build(&$content) {
+  $destination = backdrop_get_destination();
+  $tours = hopscotch_load_all();
+
+  $content['extra']['extra']['my_item'] = array(
+    '#title' => theme('hopscotch_guide_icon'),
+    '#attributes' => array('class' => array('admin-bar-tour-list')),
+    '#href' => '<front>',
+    '#options' => array(
+      'html' => TRUE,
+    ),
+  );
+  $content['extra']['extra']['my_item']['my_item'] = array(
+    '#title' => 'blank',
+    '#attributes' => array('class' => array('blank-tour')),
+    '#weight' => 50,
+    '#access' => user_access('administer site configuration'),
+    '#href' => '<front>',
+  );
+    
+}
+
+/**
+ * Renders an icon to display in the administration bar.
+ *
+ * @ingroup themeable
+ */
+function theme_hopscotch_guide_icon($variables) {
+  return '<img class="hopscotch-icon" src="' . $variables['src'] . '" width="14" height="12" alt="' . $variables['alt'] . '" />';
+}
+
+/**
+ * Preprocesses variables for theme_admin_bar_icon().
+ */
+function template_preprocess_hopscotch_guide_icon(&$variables) {
+  $variables['src'] = $GLOBALS['base_url'] . '/' . backdrop_get_path('module', 'admin_bar') . '/images/home.png';
+  $variables['alt'] = t('Tours');
+}
+
+/**
+ * Implements hook_theme().
+ */
+function hopscotch_guide_theme() {
+  return array(
+    'hopscotch_guide_icon' => array(
+      'variables' => array('src' => NULL, 'alt' => NULL),
+    ),
+  );
+}

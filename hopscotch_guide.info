@@ -1,0 +1,9 @@
+; $Id$
+name = Hopscotch guide
+description = Provides default tours and a menu bar alert
+package = User Interface
+backdrop = 1.x
+type = module
+dependencies[] = hopscotch
+scripts[] = js/hopscotch_guide.js
+stylesheets[all][] = css/hopscotch_guide.css

@@ -1,0 +1,15 @@
+.tours-found {
+  background-color: #87C583 !important;
+  margin-right: 5px !important;
+}
+.block.tours-found {
+  border: none !important;
+}
+.block-hopscotch-hopscotch-start-link.guide-button {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}
+.block-hopscotch-hopscotch-start-link.guide-button .block-content {
+  display:none;
+}
